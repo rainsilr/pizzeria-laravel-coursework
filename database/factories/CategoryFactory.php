@@ -18,14 +18,14 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->unique()->randomElement([
+            'name' => $this->faker->unique()->randomElement([
                 'Классические пиццы',
                 'Острые пиццы',
                 'Сырные пиццы',
                 'Мясные пиццы',
                 'Вегетарианские пиццы',
             ]),
-            'description' => fake()->sentence(8),
+            'description' => $this->faker->sentence(8),
         ];
     }
 }

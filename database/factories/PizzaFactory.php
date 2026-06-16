@@ -20,7 +20,7 @@ class PizzaFactory extends Factory
     {
         return [
             'category_id' => Category::factory(),
-            'name' => fake()->unique()->randomElement([
+            'name' => $this->faker->unique()->randomElement([
                 'Маргарита',
                 'Пепперони',
                 'Четыре сыра',
@@ -39,11 +39,11 @@ class PizzaFactory extends Factory
                 'Морская',
                 'Деревенская',
             ]),
-            'description' => fake()->sentence(14),
-            'price' => fake()->randomFloat(2, 399, 999),
-            'size_cm' => fake()->randomElement([25, 30, 35, 40]),
-            'is_spicy' => fake()->boolean(25),
-            'is_available' => fake()->boolean(90),
+            'description' => $this->faker->sentence(14),
+            'price' => $this->faker->randomFloat(2, 399, 999),
+            'size_cm' => $this->faker->randomElement([25, 30, 35, 40]),
+            'is_spicy' => $this->faker->boolean(25),
+            'is_available' => $this->faker->boolean(90),
         ];
     }
 }
