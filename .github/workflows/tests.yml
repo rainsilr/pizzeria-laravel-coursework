@@ -3,7 +3,7 @@ name: Tests
 on:
   push:
     branches:
-      - master
+      - main
       - '*.x'
   pull_request:
   schedule:
@@ -42,6 +42,13 @@ jobs:
 
       - name: Generate app key
         run: php artisan key:generate
+
+      - name: Prepare SQLite database
+        run: touch database/database.sqlite
+
+      - name: Configure test database
+        run: |
+          php -r "$path = '.env'; $env = file_get_contents($path); $env = preg_replace('/^DB_CONNECTION=.*/m', 'DB_CONNECTION=sqlite', $env); $env = preg_replace('/^DB_DATABASE=.*/m', 'DB_DATABASE=database/database.sqlite', $env); file_put_contents($path, $env);"
 
       - name: Execute tests
         run: php artisan test
