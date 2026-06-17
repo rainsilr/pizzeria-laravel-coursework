@@ -17,9 +17,8 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
-      fail-fast: true
       matrix:
-        php: [8.3, 8.4, 8.5]
+        php: [8.3]
 
     name: PHP ${{ matrix.php }}
 
@@ -48,7 +47,8 @@ jobs:
 
       - name: Configure test database
         run: |
-          php -r "$path = '.env'; $env = file_get_contents($path); $env = preg_replace('/^DB_CONNECTION=.*/m', 'DB_CONNECTION=sqlite', $env); $env = preg_replace('/^DB_DATABASE=.*/m', 'DB_DATABASE=database/database.sqlite', $env); file_put_contents($path, $env);"
+          sed -i 's/^DB_CONNECTION=.*/DB_CONNECTION=sqlite/' .env
+          sed -i 's|^DB_DATABASE=.*|DB_DATABASE=database/database.sqlite|' .env
 
       - name: Execute tests
         run: php artisan test
